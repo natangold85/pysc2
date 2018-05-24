@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import importlib
 import threading
+import sys
 
 from future.builtins import range  # pylint: disable=redefined-builtin
 
@@ -32,6 +33,8 @@ from pysc2.lib import stopwatch
 from absl import app
 from absl import flags
 
+AGENTS_DIR = "C:\\Users\\user\Documents\\GitHub\\pysc2_mcts_learning"
+sys.path.append(AGENTS_DIR)
 
 FLAGS = flags.FLAGS
 flags.DEFINE_bool("render", True, "Whether to render with pygame.")
@@ -81,9 +84,9 @@ def run_thread(agent_cls, map_name, visualize):
 
 def main(unused_argv):
   """Run an agent."""
+
   stopwatch.sw.enabled = FLAGS.profile or FLAGS.trace
   stopwatch.sw.trace = FLAGS.trace
-
   maps.get(FLAGS.map)  # Assert the map exists.
 
   agent_module, agent_name = FLAGS.agent.rsplit(".", 1)
